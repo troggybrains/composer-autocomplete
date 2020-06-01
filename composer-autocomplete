@@ -21,6 +21,10 @@ function _composer_scripts() {
     if [ "$subcmd" != "${COMP_WORDS[0]}" ] ; then
         local opts=$("$cmd" help "$subcmd" --no-ansi 2> /dev/null | tr -cs '[=-=][:alpha:]_' '[\n*]' | grep '^-')
         case "$subcmd" in
+            "help")
+                # Complete subcommands for composer "help" command
+                local cfgargs="$commands";
+                ;;
             "run-script")
                 # Complete scripts for composer "run-script" command.
                 local cfgargs=$("$cmd" --no-ansi 2> /dev/null | grep 'script as defined in composer.json' | awk '/^ +[a-z]+/ { print $1 }')
